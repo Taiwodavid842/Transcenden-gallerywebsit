@@ -1,12 +1,51 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowUpRight, Check } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import {
+  useCreateContactMessage,
+  type ContactMessageInput,
+} from '@workspace/api-client-react';
 
 export function ContactForm() {
-  const [formNotice, setFormNotice] = useState(false);
+  const createContactMessage = useCreateContactMessage();
+  const [feedback, setFeedback] = useState<{
+    kind: 'success' | 'error';
+    message: string;
+  } | null>(null);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setFormNotice(true);
+    if (createContactMessage.isPending) return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    const projectType = String(formData.get('project') ?? '') as ContactMessageInput['projectType'];
+    const data: ContactMessageInput = {
+      name: String(formData.get('name') ?? '').trim(),
+      email: String(formData.get('email') ?? '').trim(),
+      projectType,
+      message: String(formData.get('message') ?? '').trim(),
+    };
+
+    setFeedback(null);
+    createContactMessage.mutate(
+      { data },
+      {
+        onSuccess: () => {
+          setFeedback({
+            kind: 'success',
+            message: 'Thanks — your message was saved. We have your inquiry.',
+          });
+          form.reset();
+        },
+        onError: () => {
+          setFeedback({
+            kind: 'error',
+            message:
+              'We could not save your message. Please check your details and try again shortly. Your message has not been saved.',
+          });
+        },
+      },
+    );
   };
 
   return (
@@ -57,17 +96,23 @@ export function ContactForm() {
           data-testid="contact-message"
         />
       </label>
-      <button className="button-dark form-submit" type="submit" data-testid="contact-submit">
-        Prepare your note <ArrowUpRight size={16} />
+      <button
+        className="button-dark form-submit"
+        type="submit"
+        disabled={createContactMessage.isPending}
+        data-testid="contact-submit"
+      >
+        {createContactMessage.isPending ? 'Saving your note…' : 'Prepare your note'}
+        <ArrowUpRight size={16} />
       </button>
-      <p className="form-disclaimer" role="note">
-        <Check size={13} />
-        This form is a preview and is not connected yet. It won’t send or save your message.
-      </p>
-      {formNotice && (
-        <p className="form-feedback" role="status" data-testid="contact-form-notice">
-          Thanks for sharing your details. The contact form is not connected, so your message
-          has not been sent or saved. Please contact Transcendent Gallery directly.
+      {feedback && (
+        <p
+          className={`form-feedback ${feedback.kind === 'error' ? 'is-error' : ''}`}
+          role={feedback.kind === 'error' ? 'alert' : 'status'}
+          data-testid={`contact-form-${feedback.kind}`}
+          aria-live={feedback.kind === 'error' ? 'assertive' : 'polite'}
+        >
+          {feedback.message}
         </p>
       )}
     </form>
