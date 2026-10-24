@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Transcendent Gallery"
+description = "A responsive photography portfolio for Transcendent Gallery in Ayeso, Ilesha, Osun State, Nigeria, showcasing its photography, services, story, and contact details."
+version = "1.0.0"
+id = "artifacts/transcendent-gallery"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21619
+
+[services.development]
+run = "pnpm --filter @workspace/transcendent-gallery run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/transcendent-gallery", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/transcendent-gallery/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21619"
+BASE_PATH = "/"

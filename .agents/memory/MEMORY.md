@@ -1,0 +1,1 @@
+- [Transcendent Gallery details](transcendent-gallery.md) — use the stated Ayeso location; do not invent direct contact details.
