@@ -380,8 +380,8 @@
 }
 
 html { scroll-behavior: smooth; scroll-padding-top: 88px; }
-body { font-family: var(--app-font-sans); background: #f4f0e7; }
-::selection { background: #9b4e39; color: #f4f0e7; }
+body { font-family: var(--app-font-sans); background: #f6f1e4; }
+::selection { background: #d4a536; color: #1a2140; }
 .font-display { font-family: var(--app-font-serif); }
 .eyebrow { letter-spacing: .17em; text-transform: uppercase; font-size: .68rem; font-weight: 700; }
 .reveal { animation: rise-in .8s cubic-bezier(.2,.7,.2,1) both; }
@@ -390,7 +390,7 @@ body { font-family: var(--app-font-sans); background: #f4f0e7; }
 @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
 
-.site-shell { --ink: #302822; --rust: #984e3a; --paper: #f4f0e7; --line: #d6cfc1; --sage: #dce0d4; color: var(--ink); overflow: hidden; }
+.site-shell { --ink: #1c2238; --rust: #7f5a12; --gold: #d4a536; --gold-soft: #ecd28a; --indigo: #1a2140; --paper: #f6f1e4; --line: #ddd2bb; --sage: #e6dcc4; color: var(--ink); overflow: hidden; }
 .site-header { height: 82px; padding: 0 7.2%; display: flex; align-items: center; justify-content: space-between; background: var(--paper); position: relative; z-index: 5; }
 .brand-lockup { display: flex; gap: 10px; align-items: center; color: var(--ink); text-decoration: none; }
 .brand-mark { width: 31px; height: 31px; border: 1px solid var(--rust); color: var(--rust); display: grid; place-items: center; border-radius: 50%; }
@@ -594,3 +594,81 @@ body { font-family: var(--app-font-sans); background: #f4f0e7; }
   .footer-bottom { flex-wrap: wrap; font-size: 7px; margin-top: 7px; }
   .footer-bottom span:nth-child(2) { display: none; }
 }
+
+/* ---- Gold & adire indigo refresh ---- */
+.brand-logo { height: 56px; width: auto; display: block; filter: drop-shadow(0 1px 0 #1a214022); transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+.brand-lockup:hover .brand-logo { transform: rotate(-3deg) scale(1.04); }
+.main-nav .nav-cta { background: var(--indigo); color: var(--gold-soft); }
+.main-nav .nav-cta:hover { background: var(--gold); color: var(--indigo); }
+.button-dark { background: var(--indigo); }
+.button-dark:hover { background: var(--rust); }
+.hero-stamp { background: var(--indigo); color: var(--gold-soft); border-color: var(--gold); outline-color: #d4a53680; }
+.hero-image { object-position: center 30%; box-shadow: 18px 18px 0 var(--gold); }
+.intro-section, .services-section { background: #ede4cf; }
+.about-section { background: var(--indigo); color: #f3ead2; }
+.about-copy > p:not(.eyebrow) { color: #cfc6b0; }
+.about-copy .about-lead { color: #f6f1e4 !important; }
+.about-copy h2 em, .about-copy .eyebrow, .signature em { color: var(--gold) !important; }
+.about-copy .text-link, .signature { color: #f3ead2; }
+.about-copy .text-link:hover { color: var(--gold); }
+.about-image img { object-position: center 30%; }
+.address-line { display: flex; gap: 10px; align-items: flex-start; }
+.address-line svg { flex: none; color: var(--rust); margin-top: 5px; }
+.site-footer { background: var(--indigo); color: #f3ead2; }
+.footer-brand img { height: 112px; width: auto; display: block; }
+.footer-location .eyebrow, .footer-links .eyebrow, .footer-bottom { color: #c9b98f; }
+.footer-links a:hover, .footer-bottom a:hover { color: var(--gold); }
+.footer-bottom { border-top-color: #d4a5362e; }
+
+.filter-button { display: inline-flex; gap: 4px; align-items: baseline; border-radius: 999px; transition: background .2s, color .2s, border-color .2s; }
+.filter-button sup { font-size: .75em; opacity: .7; }
+.filter-button.is-empty { color: #9a8f80; }
+.filter-button.active { background: var(--indigo); border-color: var(--indigo); color: var(--gold-soft); }
+.gallery-toolbar { flex-wrap: wrap; }
+.filter-button:focus-visible, .gallery-trigger:focus-visible, .lightbox-btn:focus-visible, .gallery-empty button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.gallery-masonry { columns: 3 260px; column-gap: 22px; }
+.gallery-masonry .gallery-item { break-inside: avoid; margin-bottom: 30px; animation: rise-in .6s cubic-bezier(.2,.7,.2,1) both; }
+.gallery-trigger { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; text-align: left; }
+.gallery-masonry .gallery-image-wrap { display: block; height: auto; background: #e6dcc4; }
+.gallery-masonry .gallery-image-wrap img { height: 100%; object-fit: contain; }
+.gallery-masonry .gallery-image-wrap::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 0 var(--gold); transition: box-shadow .35s ease; pointer-events: none; }
+.gallery-trigger:hover .gallery-image-wrap::after, .gallery-trigger:focus-visible .gallery-image-wrap::after { box-shadow: inset 0 0 0 5px var(--gold); }
+.gallery-trigger:hover img { transform: scale(1.03); }
+.gallery-image-index { color: #fffbe9; text-shadow: 0 1px 4px #0007; }
+.gallery-open { background: var(--gold); color: var(--indigo); opacity: 0; transform: translateY(6px); transition: opacity .3s, transform .3s; }
+.gallery-trigger:hover .gallery-open, .gallery-trigger:focus-visible .gallery-open { opacity: 1; transform: none; }
+.gallery-empty { display: flex; gap: 28px; align-items: center; padding: 56px 6%; border: 1px dashed #c9b98f; background: #efe6d1; }
+.gallery-empty-mark { flex: none; width: 92px; height: 92px; border-radius: 50%; display: grid; place-items: center; background: var(--indigo); color: var(--gold); font: 600 28px var(--app-font-serif); }
+.gallery-empty h3 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin: 8px 0; font-weight: 500; }
+.gallery-empty h3 em { color: var(--rust); }
+.gallery-empty .eyebrow { color: var(--rust); }
+.gallery-empty p:not(.eyebrow) { max-width: 460px; color: #5f564a; font-size: 13px; line-height: 1.7; }
+.gallery-empty-actions { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; margin-top: 14px; font-size: 12px; }
+.gallery-empty-actions a { color: var(--rust); display: inline-flex; gap: 6px; align-items: center; }
+.gallery-empty-actions button { border: 1px solid var(--indigo); background: none; padding: 8px 14px; border-radius: 999px; font: inherit; cursor: pointer; color: var(--ink); }
+
+.lightbox-overlay { position: fixed; inset: 0; background: #11162bf2; z-index: 50; animation: fade-in .25s ease both; }
+.lightbox { --gold: #d4a536; --indigo: #1a2140; position: fixed; inset: 0; z-index: 51; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding: 14px clamp(12px, 3vw, 32px); color: #f3ead2; outline: none; }
+.lightbox-bar { display: flex; align-items: center; gap: 18px; }
+.lightbox-counter { font-size: 11px; letter-spacing: .14em; color: var(--gold); }
+.lightbox-meta { flex: 1; min-width: 0; }
+.lightbox-meta .eyebrow { color: #c9b98f; }
+.lightbox-meta h2 { margin: 2px 0 0; font-size: clamp(1.1rem, 2.4vw, 1.6rem); font-weight: 500; }
+.lightbox-btn { width: 48px; height: 48px; flex: none; border-radius: 50%; border: 1px solid #d4a53666; background: #1a2140; color: #f3ead2; display: grid; place-items: center; cursor: pointer; transition: background .2s, color .2s; }
+.lightbox-btn:hover { background: var(--gold); color: var(--indigo); }
+.lightbox-stage { margin: 12px 0; min-height: 0; min-width: 0; overflow: hidden; display: grid; place-items: center; }
+.lightbox-stage img { min-width: 0; min-height: 0; width: 100%; height: 100%; object-fit: contain; animation: fade-in .35s ease both; }
+.lightbox-nav { position: relative; z-index: 1; display: flex; justify-content: center; align-items: center; gap: 22px; }
+.lightbox-hint { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #a99d80; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@media (max-width: 700px) {
+  .brand-logo { height: 44px; }
+  .gallery-masonry { columns: 2; column-gap: 12px; }
+  .gallery-masonry .gallery-item { margin-bottom: 20px; }
+  .gallery-open { opacity: 1; transform: none; }
+  .hero-image { box-shadow: 10px 10px 0 var(--gold); }
+  .gallery-empty { flex-direction: column; align-items: flex-start; padding: 32px 20px; }
+  .lightbox-hint { display: none; }
+  .footer-brand img { height: 84px; }
+}
+@media (prefers-reduced-motion: reduce) { .gallery-trigger:hover img, .brand-lockup:hover .brand-logo { transform: none; } }

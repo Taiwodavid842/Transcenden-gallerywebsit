@@ -53,3 +53,6 @@ Thumbs.db
 # Replit
 .cache/
 .local/
+# Preserve client originals locally without adding full-resolution uploads to Git.
+/attached_assets/*.jpg
+/attached_assets/*.png

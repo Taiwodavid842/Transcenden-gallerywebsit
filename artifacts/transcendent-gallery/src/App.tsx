@@ -6,8 +6,8 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import NotFound from '@/pages/not-found';
 import { ContactForm } from '@/components/contact-form';
 import { PortfolioGallery } from '@/components/portfolio-gallery';
-import { services } from '@/data/portfolio';
-import { ArrowDown, ArrowUpRight, Camera, Menu, X } from 'lucide-react';
+import { BUSINESS, gallery, services } from '@/data/portfolio';
+import { ArrowDown, ArrowUpRight, MapPin, Menu, X } from 'lucide-react';
 import {
   Route,
   Switch,
@@ -17,6 +17,9 @@ import {
 
 const queryClient = new QueryClient();
 
+const heroPhoto = gallery.find((p) => p.sourceFile.startsWith('0_'))!;
+const aboutPhoto = gallery.find((p) => p.sourceFile.startsWith('9_'))!;
+
 const links = [['Work', '#work'], ['Services', '#services'], ['About', '#about'], ['Contact', '#contact']];
 
 function Home() {
@@ -25,8 +28,7 @@ function Home() {
     <main className="site-shell">
       <header className="site-header" data-testid="site-header">
         <a href="#top" className="brand-lockup" aria-label="Transcendent Gallery home" data-testid="brand-home">
-          <span className="brand-mark"><Camera size={17} strokeWidth={1.5} /></span>
-          <span className="brand-name">TRANSCENDENT<span>GALLERY</span></span>
+          <img src={BUSINESS.logo} alt="Transcendent Gallery logo" width={554} height={400} className="brand-logo" />
         </a>
         <nav className={`main-nav ${menuOpen ? 'is-open' : ''}`} aria-label="Main navigation">
           {links.map(([label, href]) => <a key={label} href={href} onClick={() => setMenuOpen(false)}>{label}</a>)}
@@ -38,31 +40,30 @@ function Home() {
       </header>
       <section className="hero" id="top" aria-labelledby="hero-title">
         <div className="hero-copy">
-          <p className="eyebrow hero-kicker reveal">A photography studio in Ayeso, Ilesha</p>
+          <p className="eyebrow hero-kicker reveal">A people-first photography studio</p>
           <h1 id="hero-title" className="font-display reveal reveal-delay-1">For the moments<br />that <em>stay</em> with you.</h1>
-          <p className="hero-intro reveal reveal-delay-2">We make photographs that feel like being there again — warm, alive, and unmistakably yours.</p>
+          <p className="hero-intro reveal reveal-delay-2">Portraits, family celebrations and everyday Nigerian stories — photographed with pride, warmth and a lot of patience.</p>
           <div className="hero-actions reveal reveal-delay-2">
             <a href="#work" className="button-dark" data-testid="hero-view-work">Explore the work <ArrowDown size={15} /></a>
-            <span className="hero-note">Portraits · Events · Studio</span>
+            <span className="hero-note">Studio · Family · Kids · Events</span>
           </div>
-          <span className="hero-index">01 / 04</span>
         </div>
         <div className="hero-image-wrap">
-          <img src="/images/hero-portrait.jpg" alt="A confident portrait in soft afternoon light" className="hero-image" />
-          <div className="hero-photo-label"><span>01</span><span>Portraits with presence</span></div>
+          <img src={heroPhoto.image} srcSet={heroPhoto.srcSet} sizes="(max-width: 700px) 92vw, 50vw" width={heroPhoto.width} height={heroPhoto.height} alt={heroPhoto.alt} className="hero-image" loading="eager" fetchPriority="high" />
+          <div className="hero-photo-label"><span>01</span><span>Studio session · Real client</span></div>
           <div className="hero-stamp" aria-hidden="true"><span>SEEN<br />WITH<br />FEELING</span></div>
         </div>
-        <div className="hero-bottomline"><span>PHOTOGRAPHY WITH FEELING</span><span>AYESO · ILESHA, OSUN STATE</span><span>SCROLL TO DISCOVER ↓</span></div>
+        <div className="hero-bottomline"><span>PHOTOGRAPHY WITH FEELING</span><span>{BUSINESS.address}</span><span>SCROLL TO DISCOVER</span></div>
       </section>
       <section className="intro-section" aria-label="Introduction">
         <p className="eyebrow">A note from behind the lens</p>
         <p className="intro-statement font-display">Life doesn’t ask us to pose.<br /><em>Neither do we.</em></p>
-        <div className="intro-foot"><span className="intro-rule" /><p>Transcendent Gallery is a people-first photography studio in Ayeso, Ilesha. We’re here for the real smiles, the quiet glances, and all the beautiful things happening between them.</p><a href="#about" aria-label="Learn about the photographer" className="round-arrow"><ArrowDown size={18} /></a></div>
+        <div className="intro-foot"><span className="intro-rule" /><p>Transcendent Gallery is a people-first photography studio at {BUSINESS.address} We’re here for the real smiles, the quiet glances, and all the beautiful things happening between them.</p><a href="#about" aria-label="Learn about the photographer" className="round-arrow"><ArrowDown size={18} /></a></div>
       </section>
       <section className="work-section section-pad" id="work">
         <div className="section-heading">
           <div><p className="eyebrow">Selected photographs</p><h2 className="font-display">A life, <em>in frames.</em></h2></div>
-          <p className="section-aside">A few people, places and days we’ve been lucky enough to hold onto.</p>
+          <p className="section-aside">Photographs from the studio’s own collection. Tap any frame for a larger view.</p>
         </div>
         <PortfolioGallery />
       </section>
@@ -72,18 +73,18 @@ function Home() {
         <div className="service-bottom"><span>Not sure where your idea fits? Tell us about it.</span><a href="#contact">We’re all ears <ArrowUpRight size={15} /></a></div>
       </section>
       <section className="about-section" id="about">
-        <div className="about-image"><img src="/images/celebration.jpg" alt="A joyful gathering captured in the late afternoon" loading="lazy" /><span className="about-photo-note">A GOOD DAY, WELL REMEMBERED · ILESHA</span></div>
-        <div className="about-copy"><p className="eyebrow">The person behind the pictures</p><h2 className="font-display">Hello, I’m<br /><em>your photographer.</em></h2><p className="about-lead">I believe the best photographs don’t ask you to be anyone other than yourself.</p><p>From our first conversation to the final frame, I’ll bring a calm presence, a careful eye and a genuine curiosity about what makes your story yours. Based in Ayeso, Ilesha, Transcendent Gallery photographs the people and celebrations of Osun and beyond.</p><a href="#contact" className="text-link">A little more about working together <ArrowUpRight size={16} /></a><div className="signature font-display">With warmth, <em>TG</em></div></div>
+        <div className="about-image"><img src={aboutPhoto.image} srcSet={aboutPhoto.srcSet} sizes="(max-width: 700px) 100vw, 50vw" width={aboutPhoto.width} height={aboutPhoto.height} alt={aboutPhoto.alt} loading="lazy" /><span className="about-photo-note">A FAMILY SESSION · ILESHA</span></div>
+        <div className="about-copy"><p className="eyebrow">The person behind the pictures</p><h2 className="font-display">Hello, I’m<br /><em>your photographer.</em></h2><p className="about-lead">I believe the best photographs don’t ask you to be anyone other than yourself.</p><p>From our first conversation to the final frame, I’ll bring a calm presence, a careful eye and a genuine curiosity about what makes your story yours. Based at {BUSINESS.address.replace(/\.$/, '')}, Transcendent Gallery photographs the people and celebrations of Osun and beyond.</p><a href="#contact" className="text-link">A little more about working together <ArrowUpRight size={16} /></a><div className="signature font-display">With warmth, <em>TG</em></div></div>
       </section>
       <section className="contact-section" id="contact">
-        <div className="contact-intro"><p className="eyebrow">The beginning of something</p><h2 className="font-display">Tell me what<br />you’re <em>dreaming up.</em></h2><p>Have a date in mind, an idea taking shape, or just a question? I’d love to hear about it.</p><div className="contact-details"><span className="eyebrow">Find us in</span><p>Ayeso, Ilesha<br />Osun State, Nigeria</p><p>Direct contact details can be added here before launch.</p></div></div>
+        <div className="contact-intro"><p className="eyebrow">The beginning of something</p><h2 className="font-display">Tell me what<br />you’re <em>dreaming up.</em></h2><p>Have a date in mind, an idea taking shape, or just a question? I’d love to hear about it.</p><div className="contact-details"><span className="eyebrow">Find us in</span><p className="address-line" data-testid="text-address-contact"><MapPin size={16} aria-hidden="true" />{BUSINESS.address}</p></div></div>
         <ContactForm />
       </section>
       <footer className="site-footer">
-        <a href="#top" className="footer-brand font-display">Transcendent<br /><em>Gallery</em></a>
-        <div className="footer-location"><span className="eyebrow">Made with feeling</span><p>Ayeso, Ilesha<br />Osun State, Nigeria</p></div>
+        <a href="#top" className="footer-brand" aria-label="Transcendent Gallery, back to top"><img src={BUSINESS.logo} alt="Transcendent Gallery logo" width={554} height={400} /></a>
+        <div className="footer-location"><span className="eyebrow">Made with feeling</span><p data-testid="text-address-footer">{BUSINESS.address}</p></div>
         <div className="footer-links"><span className="eyebrow">Explore</span><a href="#work">Selected work <ArrowUpRight size={13} /></a><a href="#services">Photography services <ArrowUpRight size={13} /></a></div>
-        <div className="footer-bottom"><span>© {new Date().getFullYear()} Transcendent Gallery</span><span>PHOTOGRAPHED WITH CARE IN NIGERIA</span><a href="#top">Back to top ↑</a></div>
+        <div className="footer-bottom"><span>© {new Date().getFullYear()} Transcendent Gallery</span><span>PHOTOGRAPHED WITH CARE IN NIGERIA</span><a href="#top">Back to top</a></div>
       </footer>
     </main>
   );
