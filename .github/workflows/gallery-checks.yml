@@ -1,0 +1,41 @@
+name: Gallery checks
+
+on:
+  pull_request:
+  push:
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gallery:
+    name: Gallery browser checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Install Chromium and system dependencies
+        run: pnpm --filter @workspace/transcendent-gallery exec playwright install --with-deps chromium
+      - name: Run frontend-only gallery suite
+        run: bash scripts/ci-gallery.sh
+      - name: Retain failure traces, screenshots, and frontend log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gallery-failure-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            generated-artifacts/gallery-results/
+            generated-artifacts/gallery-frontend.log
+          if-no-files-found: warn
+          retention-days: 14

@@ -80,4 +80,34 @@ followed by the path to its `trace.zip`. To run just desktop checks, append
 `--project=desktop-mouse` to the `test:gallery` command. There are no automatic
 retries, so a broken interaction is not hidden by a passing retry.
 
+### Automatic merge checks
+
+`.github/workflows/gallery-checks.yml` runs **Gallery browser checks** on every
+pull request, push, and merge-queue candidate, without path filters. It uses
+Node 24, pnpm 10.26.1, the frozen lockfile, and Playwright's Chromium with its
+system dependencies. No secrets, API server, database, or enquiry submissions
+are needed.
+
+`bash scripts/ci-gallery.sh` starts only the frontend with `PORT=4173` and
+`BASE_PATH=/`, waits for `http://127.0.0.1:4173/`, sets `GALLERY_TEST_URL` to that
+development server, runs `test:gallery`, and stops the frontend on exit.
+Install dependencies and Chromium first to run the same command locally
+(on NixOS, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` as above).
+
+A failed job keeps screenshots, traces, and the frontend startup log as a
+`gallery-failure-…` Actions artifact for 14 days. Download it from the failed
+workflow run and open a `trace.zip` using the command above.
+
+To **block merging** rather than merely report failures, a GitHub repository
+administrator must require **Gallery browser checks** in the target branch's
+protection rule or ruleset, with no bypasses. Select the check after its first
+run. The workflow also handles `merge_group` for repositories using merge queues.
+This checkout has no connected GitHub remote, so that repository setting must
+be enabled when the project is connected; committing a workflow alone cannot
+change branch protection.
+
+Keep `node scripts/verify-gallery.mjs` as a separate local check. It requires
+the preserved client originals and ImageMagick; the originals are intentionally
+excluded from Git, so it must not run in this clean-checkout CI job.
+
 The contact form and backend were not changed by this portfolio update.

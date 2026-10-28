@@ -11,6 +11,26 @@ env = { "CI" = "true" }
 [workflows]
 runButton = "Project"
 
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "gallery"
+
+[[workflows.workflow]]
+name = "gallery"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=\"${PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH:-$(command -v chromium || true)}\" bash scripts/ci-gallery.sh"
+
+[workflows.workflow.metadata]
+isValidation = true
+
 [agent]
 stack = "PNPM_WORKSPACE"
 expertMode = true
