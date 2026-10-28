@@ -8,6 +8,8 @@
     "build": "vite build --config vite.config.ts",
     "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
     "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test:contact": "playwright test --config tests/contact/playwright.config.ts",
+    "test:contact:types": "tsc -p tests/contact/tsconfig.json",
     "test:gallery": "playwright test --config tests/gallery/playwright.config.mjs",
     "test:gallery:existing": "playwright test --config playwright.config.ts gallery.spec.ts",
     "test:gallery:types": "tsc -p tests/tsconfig.json",
