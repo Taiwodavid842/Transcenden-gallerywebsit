@@ -6,3 +6,4 @@
 # The website serves optimized copies, not client originals.
 /attached_assets/*.jpg
 /attached_assets/*.png
+/generated-artifacts/
