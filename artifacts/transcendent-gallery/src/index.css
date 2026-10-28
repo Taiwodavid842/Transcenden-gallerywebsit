@@ -488,6 +488,23 @@ body { font-family: var(--app-font-sans); background: #f6f1e4; }
 .contact-details .eyebrow { color: #897e71; font-size: 8px; }
 .contact-details p { font: 500 17px/1.5 var(--app-font-serif); margin: 10px 0 16px; }
 .contact-details a { display: inline-flex; align-items: center; gap: 7px; color: var(--rust); text-decoration: none; font-size: 10px; }
+.contact-section > * { min-width: 0; }
+.studio-contact-links { list-style: none; padding: 0; margin: 18px 0; }
+.studio-contact-links li + li { margin-top: 5px; }
+.contact-details .studio-contact-links a, .studio-social-name { display: flex; align-items: center; gap: 10px; min-height: 44px; font: 400 14px/1.6 var(--app-font-sans); overflow-wrap: anywhere; }
+.studio-contact-links svg { flex-shrink: 0; color: var(--rust); }
+.studio-social-name { color: var(--ink); }
+.contact-details .studio-whatsapp { display: flex; justify-content: center; gap: 10px; min-height: 48px; padding: 13px 16px; background: var(--indigo); color: var(--gold-soft); font: 600 13px/1.6 var(--app-font-sans); border: 1px solid var(--rust); }
+.studio-whatsapp svg { flex-shrink: 0; }
+.contact-details a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.contact-details .studio-whatsapp:hover { background: var(--rust); color: var(--paper); text-decoration: none; }
+.contact-details a:focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
+.studio-hours { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--line); }
+.studio-hours h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 14px; font: 600 15px/1.5 var(--app-font-sans); }
+.studio-hours h3 svg { color: var(--rust); }
+.studio-hours dl { margin: 0; font-size: 13px; line-height: 1.7; }
+.studio-hours dl > div { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 12px; padding: 6px 0; }
+.studio-hours dd { margin: 0; color: #655c51; }
 .contact-form { padding-top: 4px; }
 .form-note { display: flex; align-items: center; gap: 9px; color: #7c7165; font: italic 15px var(--app-font-serif); padding-bottom: 20px; border-bottom: 1px solid var(--line); margin: 0 0 8px; }
 .form-dot { width: 7px; height: 7px; border-radius: 50%; background: #8b9275; }

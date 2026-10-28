@@ -5,6 +5,24 @@ export const BUSINESS = {
   name: 'Transcendent Gallery',
   address: 'Ayeso, Adelegan Compound, Ilesha, Osun State, Nigeria.',
   logo: asset('images/client/transcendent-logo.webp'),
+  phone: '+234 913 704 9262',
+  phoneHref: 'tel:+2349137049262',
+  whatsappUrl: 'https://wa.me/2349137049262',
+  email: 'idowuraphaelkehinde@gmail.com',
+  instagramHandle: '@transcendent_gallery',
+  instagramUrl: 'https://www.instagram.com/transcendent_gallery/',
+  facebookName: 'Transcendent Gallery Photography Studio',
+  // Set only after the client supplies the exact official page URL.
+  facebookUrl: null as string | null,
+  openingHours: [
+    { day: 'Monday', hours: '9:00 AM – 7:00 PM' },
+    { day: 'Tuesday', hours: '9:00 AM – 7:00 PM' },
+    { day: 'Wednesday', hours: '9:00 AM – 7:00 PM' },
+    { day: 'Thursday', hours: '9:00 AM – 7:00 PM' },
+    { day: 'Friday', hours: '9:00 AM – 7:00 PM' },
+    { day: 'Saturday', hours: '9:00 AM – 7:00 PM' },
+    { day: 'Sunday', hours: 'Opens at 1:00 PM' },
+  ],
 } as const;
 
 export const categories = [

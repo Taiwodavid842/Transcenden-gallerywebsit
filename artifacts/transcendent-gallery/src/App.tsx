@@ -7,7 +7,8 @@ import NotFound from '@/pages/not-found';
 import { ContactForm } from '@/components/contact-form';
 import { PortfolioGallery } from '@/components/portfolio-gallery';
 import { BUSINESS, gallery, services } from '@/data/portfolio';
-import { ArrowDown, ArrowUpRight, MapPin, Menu, X } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Clock, Facebook, Instagram, Mail, MapPin, Menu, Phone, X } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import {
   Route,
   Switch,
@@ -77,7 +78,34 @@ function Home() {
         <div className="about-copy"><p className="eyebrow">The person behind the pictures</p><h2 className="font-display">Hello, I’m<br /><em>your photographer.</em></h2><p className="about-lead">I believe the best photographs don’t ask you to be anyone other than yourself.</p><p>From our first conversation to the final frame, I’ll bring a calm presence, a careful eye and a genuine curiosity about what makes your story yours. Based at {BUSINESS.address.replace(/\.$/, '')}, Transcendent Gallery photographs the people and celebrations of Osun and beyond.</p><a href="#contact" className="text-link">A little more about working together <ArrowUpRight size={16} /></a><div className="signature font-display">With warmth, <em>TG</em></div></div>
       </section>
       <section className="contact-section" id="contact">
-        <div className="contact-intro"><p className="eyebrow">The beginning of something</p><h2 className="font-display">Tell me what<br />you’re <em>dreaming up.</em></h2><p>Have a date in mind, an idea taking shape, or just a question? I’d love to hear about it.</p><div className="contact-details"><span className="eyebrow">Find us in</span><p className="address-line" data-testid="text-address-contact"><MapPin size={16} aria-hidden="true" />{BUSINESS.address}</p></div></div>
+        <div className="contact-intro">
+          <p className="eyebrow">The beginning of something</p>
+          <h2 className="font-display">Tell me what<br />you’re <em>dreaming up.</em></h2>
+          <p>Have a date in mind, an idea taking shape, or just a question? I’d love to hear about it.</p>
+          <div className="contact-details">
+            <span className="eyebrow">Visit or get in touch</span>
+            <p className="address-line" data-testid="text-address-contact"><MapPin size={16} aria-hidden="true" />{BUSINESS.address}</p>
+            <ul className="studio-contact-links">
+              <li><a href={BUSINESS.phoneHref}><Phone size={17} aria-hidden="true" /><span>{BUSINESS.phone}</span></a></li>
+              <li><a href={`mailto:${BUSINESS.email}`}><Mail size={17} aria-hidden="true" /><span>{BUSINESS.email}</span></a></li>
+              <li><a href={BUSINESS.instagramUrl} target="_blank" rel="noopener noreferrer"><Instagram size={17} aria-hidden="true" /><span>{BUSINESS.instagramHandle}</span></a></li>
+              <li>
+                {BUSINESS.facebookUrl ? (
+                  <a href={BUSINESS.facebookUrl} target="_blank" rel="noopener noreferrer"><Facebook size={17} aria-hidden="true" /><span>{BUSINESS.facebookName}</span></a>
+                ) : (
+                  <span className="studio-social-name"><Facebook size={17} aria-hidden="true" /><span>{BUSINESS.facebookName}</span></span>
+                )}
+              </li>
+            </ul>
+            <a className="studio-whatsapp" href={BUSINESS.whatsappUrl} target="_blank" rel="noopener noreferrer"><FaWhatsapp size={21} aria-hidden="true" /><span>Chat with Us on WhatsApp</span><ArrowUpRight size={16} aria-hidden="true" /></a>
+            <div className="studio-hours" aria-labelledby="studio-hours-title">
+              <h3 id="studio-hours-title"><Clock size={17} aria-hidden="true" />Opening hours</h3>
+              <dl>{BUSINESS.openingHours.map(({ day, hours }) => (
+                <div key={day}><dt>{day}</dt><dd>{hours}</dd></div>
+              ))}</dl>
+            </div>
+          </div>
+        </div>
         <ContactForm />
       </section>
       <footer className="site-footer">
