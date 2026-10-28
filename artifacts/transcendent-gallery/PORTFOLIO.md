@@ -42,4 +42,42 @@ The last command requires ImageMagick. It checks the current ten-photo upload se
 
 For a phone check, open the preview, choose Work, try each filter, tap a photograph, use the viewer's navigation buttons and close it. Categories without photos should explain that no photographs have been published yet. A real contact-form submission saves a real enquiry; do not treat it as a preview-only action.
 
+### Repeatable browser regression tests
+
+With the **Transcendent Gallery** preview workflow running, run from the workspace root:
+
+```sh
+pnpm --filter @workspace/transcendent-gallery exec playwright install chromium
+pnpm --filter @workspace/transcendent-gallery run test:gallery
+```
+
+The install command is only needed once on supported local/CI systems. On NixOS,
+use a compatible system Chromium instead of installing a downloaded browser:
+
+```sh
+PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/absolute/path/to/chrome \
+  pnpm --filter @workspace/transcendent-gallery run test:gallery
+```
+
+Tests default to the shared preview proxy at `http://localhost:80/`. To test
+another **development preview**, set `GALLERY_TEST_URL` to its full URL, including
+any base path and a trailing `/`. The suite does not launch servers or require
+the API/database. It blocks all non-read HTTP requests and fails if a test
+attempts one; it never submits or fills the enquiry form.
+
+`tests/gallery/` covers every category and empty-state recovery, loaded grid and
+viewer images, real mouse Next/Previous (including image pointer interception),
+wraparound, keyboard arrows/Escape, and focus return to the exact opener.
+Touch checks run at 320×568, 390×844, and 844×390 and check both document overflow
+and individual gallery/viewer bounds so hidden overflow cannot mask clipped
+controls. Expectations use the current portfolio metadata, not a duplicate
+hardcoded photo list. The data/assets check above remains a separate check.
+
+Failures save screenshots and Playwright traces under
+`generated-artifacts/gallery-results/` (excluded from Git/deployment). To open a
+trace, run `pnpm --filter @workspace/transcendent-gallery exec playwright show-trace`
+followed by the path to its `trace.zip`. To run just desktop checks, append
+`--project=desktop-mouse` to the `test:gallery` command. There are no automatic
+retries, so a broken interaction is not hidden by a passing retry.
+
 The contact form and backend were not changed by this portfolio update.
